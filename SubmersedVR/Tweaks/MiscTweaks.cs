@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using Story;
 using BepInEx.Logging;
+using System.Collections.Generic;
 
 namespace SubmersedVR
 {
@@ -51,9 +52,22 @@ namespace SubmersedVR
     [HarmonyPatch(typeof(VRUtil), nameof(VRUtil.Recenter))]
     public static class RecenterFix
     {
+        private static XRInputSubsystem GetXRInputSubsystem()
+        {
+            var subsystems = new List<XRInputSubsystem>();
+            SubsystemManager.GetInstances(subsystems);
+
+            if (subsystems.Count > 0)
+            {
+                return subsystems[0]; // Return the first one found
+            }
+
+            return null;
+        }
+
         public static bool Prefix()
         {           
-            InputTracking.Recenter();
+            GetXRInputSubsystem()?.TryRecenter();
             return true;
         }
     }

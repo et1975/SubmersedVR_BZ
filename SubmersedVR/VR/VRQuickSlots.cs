@@ -177,7 +177,7 @@ namespace SubmersedVR
                     {
                         targetSlots.SlotKeyDown(currentSlot);
                         //Mod.logger.LogInfo($"SlotKeyDown called {targetSlots} {targetSlots is SeaTruckUpgrades} {currentSlot} {techType}");
-                        SteamVR_Actions.subnautica_HapticsRight.Execute(0.0f, 0.1f, 10f, 0.5f, SteamVR_Input_Sources.Any);
+                        HapticsVR.PlayHaptics(0.0f, 0.1f, 10f, 0.5f, false, true, false);
                     }
 
                     if(techType == TechType.SeaTruckUpgradePerimeterDefense)
@@ -187,7 +187,7 @@ namespace SubmersedVR
                         float charge = targetSlots.GetSlotCharge(currentSlot);
                         if(charge > 0 && charge < 1.0f)
                         {
-                            SteamVR_Actions.subnautica_HapticsRight.Execute(0.0f, 0.1f, 10f, 0.5f, SteamVR_Input_Sources.Any);
+                            HapticsVR.PlayHaptics(0.0f, 0.1f, 10f, 0.5f, false, true, false);
                         }
                     }               
 
@@ -224,7 +224,7 @@ namespace SubmersedVR
 
             // TODO: This still could use some tweaking, maybe just align with the controller
             var targetPos = VRCameraRig.instance.uiCamera.transform.position;
-            SteamVR_Actions.subnautica_HapticsRight.Execute(0.0f, 0.1f, 10f, 0.5f, SteamVR_Input_Sources.Any);
+            HapticsVR.PlayHaptics(0.0f, 0.1f, 10f, 0.5f, false, true, false);
 
             // Don't rotate the wheel up/down when not in vehicle.
             if (!isVehicleSlot)

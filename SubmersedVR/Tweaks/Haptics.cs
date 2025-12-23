@@ -36,6 +36,12 @@ namespace SubmersedVR
 
         public static void PlayHaptics(float secondsFromNow, float durationSeconds, float frequency, float amplitude, bool isUI = false, bool rightController = true, bool leftController = false, float leftAmplitude = -1.0f)
         {
+            // Don't attempt to play haptics if SteamVR is not ready yet
+            if (!SteamVrGameInput.IsSteamVrReady)
+            {
+                return;
+            }
+            
             if((isUI && Settings.EnableUIHaptics == true) || !isUI && Settings.EnableGameHaptics == true)
             {
                 if(leftController)
